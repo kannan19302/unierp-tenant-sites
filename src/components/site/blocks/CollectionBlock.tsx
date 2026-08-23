@@ -89,19 +89,18 @@ export function CollectionBlock(props: CollectionBlockProps) {
       setLoading(true);
       setError("");
       try {
-        const token =
-          typeof window !== "undefined" ? localStorage.getItem("token") : "";
-        if (token) {
-          // Builder / dashboard context — authenticated, current tenant.
-          const listRes = await fetch("/api/v1/builder/web-collections", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          const cols = listRes.ok ? await listRes.json() : [];
+        // Builder / dashboard context — try authenticated fetch first.
+        // Use cookie-based auth (httpOnly auth_token) — no localStorage.
+        const listRes = await fetch("/api/v1/builder/web-collections", {
+          credentials: "include",
+        });
+        if (listRes.ok) {
+          const cols = await listRes.json();
           const col = (cols as any[]).find((c: any) => c.slug === collectionSlug);
           if (!col) throw new Error("Collection not found");
           const itemsRes = await fetch(
             `/api/v1/builder/web-collections/${col.id}/items?status=PUBLISHED&pageSize=100`,
-            { headers: { Authorization: `Bearer ${token}` } },
+            { credentials: "include" },
           );
           const d = itemsRes.ok ? await itemsRes.json() : { data: [] };
           if (active) {
