@@ -2,14 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { BrandMark } from "@kannan19302/ui/components";
 import {
   ShoppingBag,
   User,
-  Search,
   Menu as MenuIcon,
   X,
-  Sparkles,
-  ChevronRight,
 } from "lucide-react";
 
 export interface TenantHeaderProps {
@@ -324,6 +322,9 @@ export function TenantFooter({ settings }: { settings?: any }) {
           gap: 0.4rem;
           color: #64748b;
           text-decoration: none;
+          --color-primary: #38bdf8;
+          --color-bg-elevated: #0f172a;
+          --color-text: #cbd5e1;
         }
         .studio-badge:hover {
           color: #38bdf8;
@@ -402,9 +403,9 @@ export function TenantFooter({ settings }: { settings?: any }) {
         <div>
           © {year} {siteName}. All rights reserved.
         </div>
-        <Link href="/apps/builder" className="studio-badge">
-          <Sparkles size={14} />
-          <span>Customized with Builder Studio</span>
+        <Link href="/apps" className="studio-badge" aria-label="Powered by UniERP">
+          <BrandMark compact size="sm" />
+          <span>Powered by UniERP</span>
         </Link>
       </div>
     </footer>
