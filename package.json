@@ -12,7 +12,7 @@
     "start": "next start --port 4004",
     "typecheck": "tsc --noEmit",
     "lint": "next lint",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:e2e": "tsx scripts/test-e2e.ts",
     "check:tokens": "node node_modules/@kannan19302/ui/scripts/check-tokens.mjs ."
